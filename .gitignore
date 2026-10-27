@@ -1,0 +1,14 @@
+.env
+.env.*
+auth-state.json
+auth-state-*.json
+node_modules/
+test-results/
+playwright-report/
+all-blobs/
+blob-report/
+merged-results.json
+test-results-full-run.log
+evidence/
+debug-dashboard.png
+tests/fintrack.spec.js
