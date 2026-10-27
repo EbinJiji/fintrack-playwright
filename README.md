@@ -9,6 +9,45 @@ The suite covers login and sessions, registration, dashboard, transactions, recu
 243 tests executed: 235 passed, 4 failed (2 defects, each reproduced on both accounts), 4 skipped by design.
 See [`FinTrack-QA-Test-Report.pdf`](FinTrack-QA-Test-Report.pdf) and [`test-report.md`](test-report.md).
 
+## Defects
+
+| ID | Module | Title | Severity | Priority | Status |
+|---|---|---|---|---|---|
+| FT-001 | Transactions | Deleting a transaction runs immediately, with no confirmation | Medium | High | Confirmed on both accounts |
+| FT-002 | Login | A signed-in user who opens the home URL sees the login form | Low | Low | Suspected (UX) |
+| FT-003 | Notifications | "Manage alert preferences" opens the Profile tab, not Alerts | Low | Medium | Confirmed on both accounts |
+| FT-004 | Family & sharing | "Create family" stays disabled without saying why | Low | Low | Confirmed (usability) |
+
+### FT-001: Deleting a transaction runs immediately, with no confirmation
+
+- **Test:** TXN-09 (fails on both accounts)
+- **Steps:** open Transactions, then click the trash icon on any row.
+- **Expected:** a confirmation step, as Categories and Recurring already have.
+- **Actual:** `DELETE /api/transactions/{uuid}` is sent at once and the record is gone. There is no undo.
+- **Environment:** Chromium, 1440×900. Reproducible every time.
+
+### FT-002: A signed-in user who opens the home URL sees the login form
+
+- **Test:** AUTH-09 (records the behavior; passes)
+- **Steps:** sign in, then open `/`.
+- **Expected:** redirect to `/dashboard`.
+- **Actual:** the login form is shown. The session is still valid, and `/dashboard` works without signing in again.
+- **Note:** there is no documented rule for this, so it is reported as a suspected UX issue.
+
+### FT-003: "Manage alert preferences" opens the Profile tab, not Alerts
+
+- **Test:** NOT-04 (fails on both accounts)
+- **Steps:** open Notifications, then click "Manage alert preferences".
+- **Expected:** `/settings?section=alerts`.
+- **Actual:** the link's `href` is `/settings`, so it lands on the Profile tab.
+
+### FT-004: "Create family" stays disabled without saying why
+
+- **Test:** FAM-03 (records the behavior; passes)
+- **Steps:** on an account whose currency is not yet confirmed, open Family, enter a name and tick the consent box.
+- **Expected:** an inline hint naming the missing step.
+- **Actual:** the button stays disabled with no message. It enables only after "Confirm your existing currency".
+
 ## Test cases
 
 All test cases with their result in the latest run. Module tests run once per account (Existing / New). Login, registration, API and isolation tests use their own sessions, so they have one result. Skips are by design: tests that change account settings run only on the dedicated test account.
