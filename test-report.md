@@ -5,6 +5,7 @@
 - **Tooling:** Playwright Test 1.64.1 · Node v24.15.0 · Chromium, headed · Windows 11
 - **Viewports:** 1440×900 (default), 768×1024, 390×844, 720×800 (isolation)
 - **Status:** **COMPLETE.** Every test executed. Results are taken from the merged Playwright report (`playwright-report/index.html`, `merged-results.json`).
+- **Repository:** https://github.com/EbinJiji/fintrack-playwright (test code, this report and the PDF)
 
 ## 1. Summary
 
@@ -170,6 +171,7 @@ Each of these ran and passed on the new account.
 
 ## 10. Artifacts
 
+- **Source code:** https://github.com/EbinJiji/fintrack-playwright
 - **HTML report:** `npx playwright show-report` (`playwright-report/`)
 - **Merged JSON:** `merged-results.json`
 - **Evidence for failures:** `evidence/` (screenshots, videos, traces)
